@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 const AddTask = () => {
 
@@ -11,6 +12,19 @@ const AddTask = () => {
         const data = {title, description, image}
         console.log(data);
         form.reset();
+
+        fetch('http://localhost:5000/addTask',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(res=> res.json())
+        .then(data => {
+            if(data.acknowledged === true) {
+                toast.success("Task Added")
+            }
+        })
+        .catch(err => console.error(err))
     }
 
     return (
