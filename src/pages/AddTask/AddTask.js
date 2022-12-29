@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import { AuthProvider } from '../../Contexts/AuthContext';
 
 const AddTask = () => {
+
+    const {user} = useContext(AuthProvider)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -9,7 +12,7 @@ const AddTask = () => {
         const title = form.title.value;
         const description = form.description.value;
         const image = form.image.value;
-        const data = {title, description, image}
+        const data = {title, description, image, email: user.email}
         console.log(data);
         form.reset();
 
