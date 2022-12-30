@@ -3,14 +3,14 @@ import React from 'react';
 const EditTask = () => {
 
     const handleEdit = ()=> {
-        
+
     }
 
     return (
         <div className="container mx-auto my-24">
             <div className="bg-gray-50 p-8 mx-auto w-1/2 rounded-md">
                 <h1 className="text-3xl font-bold text-center">
-                    Add Task
+                    Edit Task
                 </h1>
                 
                 <form onSubmit={handleEdit}>

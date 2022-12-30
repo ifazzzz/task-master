@@ -8,6 +8,7 @@ import EditTask from "../pages/MyTask/EditTask";
 
 import MyTask from "../pages/MyTask/MyTask";
 import TaskDetails from "../pages/MyTask/TaskDetails";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/myTask/:id',
-                element: <TaskDetails></TaskDetails>,
+                element: <PrivateRoute><TaskDetails></TaskDetails></PrivateRoute>,
                 loader: ({params})=> fetch(`https://task-master-server-ifazzzz.vercel.app/myTask/${params.id}`)
             }
         ],
