@@ -12,7 +12,7 @@ const CompletedTask = () => {
         queryKey : ['completedTasks'],
         queryFn : async ()=> {
             try{
-               const res = await fetch(`http://localhost:5000/completedTask?email=${user?.email}`);
+               const res = await fetch(` https://task-master-server-ifazzzz.vercel.app/completedTask?email=${user?.email}`);
                const data = await res.json();
                console.log(data);
                return data;
@@ -24,7 +24,7 @@ const CompletedTask = () => {
     })
 
     const deleteTask = (id) => {
-          fetch(`http://localhost:5000/tasks/${id}`,{
+          fetch(` https://task-master-server-ifazzzz.vercel.app/tasks/${id}`,{
             method : 'DELETE',
             headers:  { 'Content-Type': 'application/json'},
           })

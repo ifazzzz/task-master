@@ -2,14 +2,34 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthProvider } from '../../Contexts/AuthContext';
+import Loader from '../../Loader/Loader';
 
 const MyTask = () => {
 
     const navigate = useNavigate()
     const {user} = useContext(AuthProvider)
 
+    const {data : myTasks = [], refetch} = useQuery({
+        queryKey : ['myTasks'],
+        queryFn : async ()=> {
+            try{
+               const res = await fetch(` https://task-master-server-ifazzzz.vercel.app/myTask?email=${user?.email}`);
+               const data = await res.json();
+               console.log(data);
+               return data;
+            }
+            catch(error) {
+              console.error(error);
+            }
+        }
+    })
+
+    if(!myTasks){
+        return <Loader></Loader>
+    }
+
     const completeTask = (task) => {
-        fetch('http://localhost:5000/completedTask',{
+        fetch(' https://task-master-server-ifazzzz.vercel.app/completedTask',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify(task)
@@ -22,20 +42,6 @@ const MyTask = () => {
             }
         })
     }
-    const {data : myTasks = [], refetch} = useQuery({
-        queryKey : ['myTasks'],
-        queryFn : async ()=> {
-            try{
-               const res = await fetch(`http://localhost:5000/myTask?email=${user?.email}`);
-               const data = await res.json();
-               console.log(data);
-               return data;
-            }
-            catch(err) {
-              console.log(err);
-            }
-        }
-    })
 
     return (
         <div className="container mx-auto my-40 px-60">
