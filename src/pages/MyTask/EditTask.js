@@ -1,33 +1,9 @@
-import React, { useContext } from 'react';
-import { toast } from 'react-hot-toast';
-import { AuthProvider } from '../../Contexts/AuthContext';
+import React from 'react';
 
-const AddTask = () => {
+const EditTask = () => {
 
-    const {user} = useContext(AuthProvider)
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const title = form.title.value;
-        const description = form.description.value;
-        const image = form.image.value;
-        const data = {title, description, image, email: user.email, status: "incomplete"}
-        console.log(data);
-        form.reset();
-
-        fetch('https://task-master-server-ifazzzz.vercel.app/addTask',{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        })
-        .then(res=> res.json())
-        .then(data => {
-            if(data.acknowledged === true) {
-                toast.success("Task Added")
-            }
-        })
-        .catch(err => console.error(err))
+    const handleEdit = ()=> {
+        
     }
 
     return (
@@ -37,7 +13,7 @@ const AddTask = () => {
                     Add Task
                 </h1>
                 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleEdit}>
                 <div className="my-6">
                     <label for="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Title</label>
                     <input name="title" type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
@@ -58,7 +34,7 @@ const AddTask = () => {
                         <input id="dropzone-file" name="image" type="file" className="hidden" />
                     </label>
                 </div> 
-                <button type="submit" className="mt-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                <button type="submit" className="mt-8 text-white bg-gray-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Edit Task</button>
                 </form>
 
             </div>
@@ -66,4 +42,4 @@ const AddTask = () => {
     );
 };
 
-export default AddTask;
+export default EditTask;
